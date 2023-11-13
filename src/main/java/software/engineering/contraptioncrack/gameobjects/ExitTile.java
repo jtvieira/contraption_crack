@@ -4,12 +4,10 @@ import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 
 public class ExitTile extends GameObject{
     private Group eTile;
@@ -23,7 +21,7 @@ public class ExitTile extends GameObject{
         super(x, y);
         type = "EXT";
         this.leadsToLevel = readLevel(level);
-        FileInputStream stream = new FileInputStream("src/main/java/software/engineering/contraptioncrack/gameobjects/arrow square.jpg");
+        FileInputStream stream = new FileInputStream("src/main/java/software/engineering/contraptioncrack/resources/arrow_square.jpg");
         this.rotateValue = rotateValue;
         exitTile = new Image(stream);
         imageView = new ImageView(exitTile);

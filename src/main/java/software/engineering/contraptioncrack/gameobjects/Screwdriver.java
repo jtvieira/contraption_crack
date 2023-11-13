@@ -4,7 +4,6 @@ import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import java.io.FileInputStream;
@@ -17,7 +16,7 @@ public class Screwdriver extends GameObject{
     public Screwdriver(int x, int y) throws FileNotFoundException {
         super(x, y);
         type = "SCW";
-        FileInputStream stream = new FileInputStream("src/main/java/software/engineering/contraptioncrack/gameobjects/screwdriver.png");
+        FileInputStream stream = new FileInputStream("src/main/java/software/engineering/contraptioncrack/resources/screwdriver.png");
         Image screwdriverImg = new Image(stream);
         imageView = new ImageView(screwdriverImg);
         imageView.setX(x);

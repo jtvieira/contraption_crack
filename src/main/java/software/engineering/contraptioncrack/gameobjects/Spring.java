@@ -27,7 +27,7 @@ public class Spring extends GameObject{
         this.hold = hold;
         type = "SPG";
         this.direction = direction;
-        FileInputStream stream = new FileInputStream("src/main/java/software/engineering/contraptioncrack/gameobjects/spring.png");
+        FileInputStream stream = new FileInputStream("src/main/java/software/engineering/contraptioncrack/resources/spring.png");
         Image springImg = new Image(stream);
         imageView = new ImageView(springImg);
         imageView.setX(x);
@@ -37,7 +37,7 @@ public class Spring extends GameObject{
         imageView.preserveRatioProperty();
         imageView.setRotate(direction);
 
-        FileInputStream stream2 = new FileInputStream("src/main/java/software/engineering/contraptioncrack/gameobjects/spring2.png");
+        FileInputStream stream2 = new FileInputStream("src/main/java/software/engineering/contraptioncrack/resources/spring2.png");
         Image springUpImg = new Image(stream2);
         imageView2 = new ImageView(springUpImg);
         imageView2.setX(x);
