@@ -2,8 +2,6 @@ package software.engineering.contraptioncrack;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,9 +14,6 @@ import javafx.stage.Stage;
 import software.engineering.contraptioncrack.board.GameBoard;
 import software.engineering.contraptioncrack.gameobjects.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -266,7 +261,7 @@ public class HelloApplication extends Application {
      */
     public void loadLevel(String level) throws IOException {
         root.getChildren().clear();
-        Scanner readFile = new Scanner(new File("src/main/java/software/engineering/contraptioncrack/levelinfo.txt"));
+        Scanner readFile = new Scanner(new File("src/main/java/software/engineering/contraptioncrack/level/levelinfo.txt"));
         if(!level.equals("level-1")) {
             while (readFile.hasNextLine()) {
                 if (readFile.nextLine().contains(level)) {
