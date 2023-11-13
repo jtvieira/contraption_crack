@@ -1,0 +1,163 @@
+//////////////////////////////////////////////
+Tile color key: 0-black, 1-white, 2-dark grey
+Every Level will be as follows:
+Level name
+width, height, tile dimensions(square), num tiles width, num tiles height
+2d array of tiles with integers representing different tile types
+Every Level's Objects will be as follows:
+amount of objects
+objects
+player start location(x, y)
+//////////////////////////////////////////////
+
+Level1 info
+400 480 80 5 6
+0 1 0 1 2
+1 0 1 0 2
+0 1 0 1 2
+1 0 1 0 2
+0 1 0 1 2
+1 0 1 0 2
+6
+EXT 410 210 0 2
+JUK 490 410
+BAR 240 200 330 10
+BAR 240 200 10 490
+BAR 573 200 10 490
+BAR 240 690 330 10
+393 659
+
+end
+
+Level2 info
+480 720 80 6 9
+3 3 3 3 3 3
+3 3 3 3 3 3
+3 3 3 3 3 3
+3 3 3 3 3 3
+3 3 3 3 3 3
+3 3 3 3 3 3
+3 3 3 3 3 3
+3 3 3 3 3 3
+3 3 3 3 3 3
+36
+EXT 410 90 0 3
+EXT 410 730 0 0
+WALL 290 610 GREY 320 40 notTimed 0
+WALL 210 450 GREY 80 40 notTimed 0
+WALL 610 450 GREY 80 40 notTimed 0
+WALL 370 330 BLACK 160 160 notTimed 0
+WALL 210 730 BLACK 200 80 notTimed 0
+WALL 210 90 BLACK 200 160 notTimed 0
+WALL 490 730 BLACK 200 80 notTimed 0
+WALL 490 90 BLACK 200 160 notTimed 0
+BTN 250 650 YELLOW 1 SQUARE false
+BTN 570 650 PURPLE 2 SQUARE false
+BTN 290 510 PURPLE 2 SQUARE false
+BTN 370 510 BLUE 3 SQUARE false
+BTN 450 510 YELLOW 1 SQUARE false
+BTN 530 510 ORANGE 4 SQUARE false
+BTN 250 290 ORANGE 4 SQUARE false
+BTN 570 290 BLUE 3 SQUARE false
+SPI 410 230 BLUE horizontal true 3
+SPI 410 210 YELLOW horizontal true 1
+SPI 410 190 ORANGE horizontal true 4
+SPI 410 170 PURPLE horizontal true 2
+SPI 290 470 ORANGE horizontal true 4
+SPI 290 450 BLUE horizontal true 3
+SPI 210 628 YELLOW horizontal true 1
+SPI 530 250 BLUE vertical true 3
+SPI 530 470 ORANGE horizontal true 4
+SPI 530 450 BLUE horizontal false 3
+SPI 350 250 BLUE vertical false 3
+SPI 610 630 YELLOW horizontal false 1
+SPG 370 650 180 true
+SPG 450 650 0 true
+BAR 210 80 480 10
+BAR 200 90 10 720
+BAR 210 810 480 10
+BAR 690 90 10 720
+435 720
+
+end
+
+Level3 info
+480 560 80 6 7
+3 3 3 3 3 3
+3 3 3 3 3 3
+3 3 3 3 3 3
+3 3 3 3 3 3
+3 3 3 3 3 3
+3 3 3 3 3 3
+3 3 3 3 3 3
+33
+EXT 290 170 0 0
+EXT 210 250 270 4
+EXT 410 650 180 2
+SCW 530 290
+WALL 210 630 DARKGREY 190 30 notTimed 0
+WALL 210 520 DARKGREY 190 30 notTimed 0
+WALL 210 410 DARKGREY 190 30 notTimed 0
+WALL 500 630 DARKGREY 190 30 notTimed 0
+WALL 500 520 DARKGREY 190 30 notTimed 0
+WALL 500 410 DARKGREY 190 30 notTimed 0
+WALL 370 250 DARKGREY 160 30 notTimed 0
+WALL 370 250 DARKGREY 30 80 notTimed 0
+WALL 500 250 DARKGREY 30 80 notTimed 0
+WALL 210 170 BLACK 80 80 notTimed 0
+WALL 370 170 BLACK 320 80 notTimed 0
+WALL 375 440 DARKGREY 20 80 timed 0
+WALL 375 550 DARKGREY 20 80 timed 5000
+WALL 505 440 DARKGREY 20 80 timed 10000
+WALL 505 550 DARKGREY 20 80 timed 15000
+
+BTN 210 550 PURPLE 1 CIRCLE true
+BTN 294 550 GREEN 2 CIRCLE true
+BTN 210 440 YELLOW 3 CIRCLE true
+BTN 526 440 BLUE 4 CIRCLE true
+BTN 610 440 PURPLE 1 CIRCLE true
+BTN 610 550 YELLOW 3 CIRCLE true
+
+SPI 410 420 YELLOW horizontal true 3
+SPI 410 400 PURPLE horizontal true 1
+SPI 375 330 BLUE vertical true 4
+SPI 505 330 GREEN vertical true 2
+
+BAR 210 160 480 10
+BAR 200 170 10 560
+BAR 210 730 480 10
+BAR 690 170 10 560
+435 650
+
+end
+
+Level4 info
+480 480 80 6 6
+5 5 5 4 5 5
+5 5 5 4 5 5
+5 5 5 4 5 5
+5 5 5 4 5 5
+5 5 5 4 5 5
+5 5 5 4 5 5
+18
+EXT 610 210 90 3
+EXT 210 290 270 0
+EXT 210 530 270 0
+SPG 370 290 0 false
+SPG 530 530 180 false
+WALL 210 440 GREY 20 20 notTimed 0
+WALL 270 440 GREY 20 20 notTimed 0
+WALL 370 440 GREY 20 20 notTimed 0
+WALL 430 440 GREY 20 20 notTimed 0
+WALL 230 445 RED 40 10 notTimed 0
+WALL 390 445 RED 40 10 notTimed 0
+BTN 290 530 DARKGREY 1 CIRCLE false
+BTN 610 370 ORANGE 2 SQUARE false
+SPI 290 440 GREY horizontal true 1
+BAR 210 200 480 10
+BAR 200 210 10 480
+BAR 210 690 480 10
+BAR 690 210 10 480
+610 235
+
+end
