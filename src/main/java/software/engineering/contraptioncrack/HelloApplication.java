@@ -13,6 +13,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import software.engineering.contraptioncrack.board.GameBoard;
 import software.engineering.contraptioncrack.gameobjects.*;
+import software.engineering.contraptioncrack.level.LevelLoader;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class HelloApplication extends Application {
     private Boolean dPressed = false;
     private Boolean escActive = false;
     private final int movementVariable = 3;
+    private LevelLoader levelLoader;
     ArrayList<GameObject> gameObjects;
     String currentLevel;
     VBox dropdownMenu;
@@ -50,22 +52,23 @@ public class HelloApplication extends Application {
             double yPos = player.getLayoutY() + dy;
 
             if(gameObjects.size() > 0) {
-                for(int i = 0; i < gameObjects.size(); i++) {
-                    if(collision(player.getBounds((int) xPos, (int) yPos), gameObjects.get(i).getBounds())) {
-                        if(gameObjects.get(i).getType().equals("EXT")){
+                for(GameObject go : gameObjects) {
+                    if(collision(player.getBounds((int) xPos, (int) yPos), go.getBounds())) {
+                        if(go instanceof ExitTile) {
                             try {
-                                ExitTile tempExit = (ExitTile) gameObjects.get(i);
+                                ExitTile tempExit = (ExitTile) go;
                                 if(tempExit.getLevel().equals("Level0"))
                                     break;
                                 loadLevel(tempExit.getLevel());
                                 break;
                             } catch (IOException e) {
+                                System.out.println("Unable to read from file");
                                 throw new RuntimeException(e);
                             }
-                        }else if(gameObjects.get(i).getType().equals("BTN") || gameObjects.get(i).getType().equals("SCW")) {
-                            gameObjects.get(i).activate();
-                        }else if(gameObjects.get(i).getType().equals("SPG")){
-                            Spring tempSpring = (Spring) gameObjects.get(i);
+                        } else if(go instanceof GameButton || go instanceof Screwdriver) {
+                            go.activate();
+                        } else if(go instanceof Spring) {
+                            Spring tempSpring = (Spring) go;
                             if(tempSpring.getHold()){
                                 if(tempSpring.getActive()){
                                     dx = 0;
@@ -82,15 +85,15 @@ public class HelloApplication extends Application {
                                 case 90 -> dy += 160;
                                 case 180 -> dx -= 160;
                                 case 270 -> dy -= 160;
-                                default -> {
-                                }
+                                default -> {}
                             }
-                        }else {
+                        } else {
                             dx = 0;
                             dy = 0;
                         }
                     }
                 }
+
             }
             player.movePlayer(dx, dy);
         }
