@@ -104,9 +104,10 @@ public class HelloApplication extends Application {
         gameObjects = new ArrayList<>();
         mvmtBound = new int[]{900,900};
         scene = new Scene(root, 900, 900);
-
         scene.setFill(Color.WHITE);
-        loadLevel("level-1");
+
+        levelLoader = new LevelLoader(player, root, scene, timer);
+        levelLoader.loadLevel("level-1");
         /**
          * Player Movement Controller
          */

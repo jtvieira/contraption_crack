@@ -1,5 +1,6 @@
 package software.engineering.contraptioncrack.level;
 
+import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -24,18 +25,42 @@ public class LevelLoader {
     private Player player;
     private Group root;
     private Scene scene;
+    private AnimationTimer timer;
 
-    public LevelLoader (Player player, Group root, Scene scene) {
+    public LevelLoader (Player player, Group root, Scene scene, AnimationTimer timer) {
         this.player = player;
         this.root = root;
         this.scene = scene;
+        this.timer = timer;
 
     }
 
-    public void loadLevel() throws FileNotFoundException {
+    public void loadLevel(String level) throws FileNotFoundException {
         root.getChildren().clear();
         Scanner readFile = new Scanner(new File("src/main/java/software/engineering/contraptioncrack/level/levelinfo.txt"));
-        if (!level.equals("level-1")) {
+        if (level.equals("level-1")) {
+            Text title = new Text(200, 200, "Welcome to Contraption Crack!");
+            title.setFont(new Font(30));
+            Button btn = new Button("New Game");
+            btn.setLayoutY(450);
+            btn.setLayoutX(450);
+            Button load = new Button("Load");
+            load.setLayoutX(450);
+            load.setLayoutY(500);
+            btn.setOnAction(actionEvent -> {
+                scene.setFill(Color.BLACK);
+                try {
+                    loadLevel("Level1");
+                    timer.start();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            root.getChildren().add(title);
+            root.getChildren().add(btn);
+            root.getChildren().add(load);
+            return;
+        } else {
             while (readFile.hasNextLine()) {
                 if (readFile.nextLine().contains(level)) {
                     break;
