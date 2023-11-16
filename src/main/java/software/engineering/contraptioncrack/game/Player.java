@@ -1,4 +1,4 @@
-package software.engineering.contraptioncrack;
+package software.engineering.contraptioncrack.game;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -8,20 +8,23 @@ import java.util.ArrayList;
 
 
 public class Player extends Rectangle{
-    private static int size = 30;
-    ArrayList<GameObject> gameObjects;
-    private int[] movementBounds;
-    public Player(int x, int y, int[] movementBounds){
-        setHeight(size);
-        setWidth(size);
+    private final static int SIZE = 30;
+    private ArrayList<GameObject> gameObjects;
+    private int[] movementBounds = {900,900};
+
+    public Player(int x, int y){
+        setHeight(SIZE);
+        setWidth(SIZE);
         setFill(Color.CYAN);
-        this.movementBounds = movementBounds;
         setLayoutX(x);
         setLayoutY(y);
         gameObjects = new ArrayList<>();
     }
+    public Player() {
+
+    }
     public Rectangle getBounds(int dx, int dy){
-        return new Rectangle(dx, dy, size, size);
+        return new Rectangle(dx, dy, SIZE, SIZE);
     }
     public void addGameObject(GameObject gameObjectIn){
         gameObjects.add(gameObjectIn);

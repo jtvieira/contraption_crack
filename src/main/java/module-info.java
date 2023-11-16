@@ -9,4 +9,6 @@ module software.engineering.contraptioncrack {
     opens software.engineering.contraptioncrack.gameobjects to javafx.fxml;
     exports software.engineering.contraptioncrack.board;
     opens software.engineering.contraptioncrack.board to javafx.fxml;
+    exports software.engineering.contraptioncrack.game;
+    opens software.engineering.contraptioncrack.game to javafx.fxml;
 }
