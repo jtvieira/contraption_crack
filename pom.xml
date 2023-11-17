@@ -61,7 +61,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                software.engineering.contraptioncrack/software.engineering.contraptioncrack.game.HelloApplication
+                                software.engineering.contraptioncrack/software.engineering.contraptioncrack.HelloApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

@@ -6,9 +6,11 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import software.engineering.contraptioncrack.gameobjects.*;
 import software.engineering.contraptioncrack.level.LevelLoader;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -29,19 +31,38 @@ public class GameController {
     private boolean aPressed;
     private boolean sPressed;
     private boolean dPressed;
+    private boolean escActive;
 
     private final int MOVEMENT_VARIABLE = 3;
 
-    public GameController() {
+    public GameController(Stage stage) {
         root = new Group();
         gameObjects = new ArrayList<>();
-        scene = new Scene(root, 900, 900);
-        scene.setFill(Color.WHITE);
+        scene = initializeScene(root);
         player = new Player();
-        levelLoader = new LevelLoader(player, root, scene, gameLoop, gameObjects, new int[]{1,1}, dropDownMenu);
+        dropDownMenu = new VBox();
+        levelLoader = new LevelLoader(player, root, scene, gameObjects, new int[]{1,1}, dropDownMenu);
+        try {
+            levelLoader.loadLevel("level-1");
+        } catch (FileNotFoundException fnfe) {
+            System.out.println("File not found");
+        }
+        initGameLoop();
+        stage.setTitle("Contraption Crack");
+        stage.setScene(scene);
+        stage.show();
 
     }
 
+    public void startGame() {
+        gameLoop.start();
+    }
+    private Scene initializeScene(Group root) {
+        Scene initScene = new Scene(root, 900, 900);
+        initScene.setFill(Color.WHITE);
+        initScene = addMovementListeners(initScene);
+        return initScene;
+    }
     private void initGameLoop() {
         gameLoop = new AnimationTimer() {
             @Override
@@ -110,5 +131,51 @@ public class GameController {
 
     private Boolean collision(Rectangle player, Rectangle object){
         return player.intersects(object.getBoundsInParent());
+    }
+
+    private Scene addMovementListeners(Scene scene) {
+        scene.setOnKeyPressed(keyEvent -> {
+            switch (keyEvent.getCode()) {
+                case W:
+                    wPressed = true;
+                    break;
+                case A:
+                    aPressed = true;
+                    break;
+                case S:
+                    sPressed = true;
+                    break;
+                case D:
+                    dPressed = true;
+                    break;
+                case ESCAPE:
+                    if(!escActive){
+                        escActive = true;
+                        dropDownMenu.setVisible(true);
+                    }else{
+                        escActive = false;
+                        dropDownMenu.setVisible(false);
+                    }
+            }
+        });
+
+        scene.setOnKeyReleased(keyEvent -> {
+            switch (keyEvent.getCode()) {
+                case W:
+                    wPressed = false;
+                    break;
+                case A:
+                    aPressed = false;
+                    break;
+                case S:
+                    sPressed = false;
+                    break;
+                case D:
+                    dPressed = false;
+                    break;
+            }
+        });
+
+        return scene;
     }
 }

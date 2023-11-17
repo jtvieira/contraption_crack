@@ -31,12 +31,11 @@ public class LevelLoader {
     private VBox dropdownMenu;
     private HashMap<String, Color> colors;
 
-    public LevelLoader (Player player, Group root, Scene scene, AnimationTimer timer,
+    public LevelLoader (Player player, Group root, Scene scene,
                         ArrayList<GameObject> gameObjects, int[] playerCoords, VBox dropdownMenu) {
         this.player = player;
         this.root = root;
         this.scene = scene;
-        this.timer = timer;
         this.gameObjects = gameObjects;
         this.playerCoords = playerCoords;
         this.dropdownMenu = dropdownMenu;
@@ -71,7 +70,6 @@ public class LevelLoader {
                 scene.setFill(Color.BLACK);
                 try {
                     loadLevel("Level1");
-                    timer.start();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -115,7 +113,6 @@ public class LevelLoader {
         GameBoard gb = loadGameBoard(readFile);
 
         currentLevel = level;
-        dropdownMenu = new VBox();
         dropdownMenu.setLayoutX(0);
         dropdownMenu.setLayoutY(0);
         dropdownMenu.setPrefSize(160, 80);
