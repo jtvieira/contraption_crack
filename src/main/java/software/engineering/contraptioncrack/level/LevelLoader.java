@@ -4,12 +4,11 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import software.engineering.contraptioncrack.game.Player;
 import software.engineering.contraptioncrack.board.GameBoard;
+import software.engineering.contraptioncrack.game.Player;
 import software.engineering.contraptioncrack.gameobjects.*;
 
 import java.io.File;
@@ -28,35 +27,41 @@ public class LevelLoader {
     private ArrayList<GameObject> gameObjects;
     private String currentLevel;
     private int[] playerCoords;
-    private VBox dropdownMenu;
+    private DropdownMenu dropdownMenu;
     private HashMap<String, Color> colors;
 
-    public LevelLoader (Player player, Group root, Scene scene,
-                        ArrayList<GameObject> gameObjects, int[] playerCoords, VBox dropdownMenu) {
-        this.player = player;
+    public LevelLoader (Group root, Scene scene, ArrayList<GameObject> gameObjects) {
+
         this.root = root;
         this.scene = scene;
         this.gameObjects = gameObjects;
-        this.playerCoords = playerCoords;
-        this.dropdownMenu = dropdownMenu;
+        this.colors = populateColors();
+        this.playerCoords = new int[2];
 
-        colors = new HashMap<>();
-        colors.put("BLUE", Color.BLUE);
-        colors.put("CYAN", Color.CYAN);
-        colors.put("DARKGREY", Color.DARKGREY);
-        colors.put("GREEN", Color.GREEN);
-        colors.put("GREY", Color.GREY);
-        colors.put("LIGHTBLUE", Color.LIGHTBLUE);
-        colors.put("ORANGE", Color.ORANGE);
-        colors.put("PURPLE", Color.PURPLE);
-        colors.put("RED", Color.RED);
-        colors.put("YELLOW", Color.YELLOW);
-        colors.put("BLACK", Color.BLACK);
+    }
+
+    private HashMap<String, Color> populateColors() {
+        HashMap<String, Color> colorsMap = new HashMap<>();
+        colorsMap.put("BLUE", Color.BLUE);
+        colorsMap.put("CYAN", Color.CYAN);
+        colorsMap.put("DARKGREY", Color.DARKGREY);
+        colorsMap.put("GREEN", Color.GREEN);
+        colorsMap.put("GREY", Color.GREY);
+        colorsMap.put("LIGHTBLUE", Color.LIGHTBLUE);
+        colorsMap.put("ORANGE", Color.ORANGE);
+        colorsMap.put("PURPLE", Color.PURPLE);
+        colorsMap.put("RED", Color.RED);
+        colorsMap.put("YELLOW", Color.YELLOW);
+        colorsMap.put("BLACK", Color.BLACK);
+        return colorsMap;
     }
 
     public void loadLevel(String level) throws FileNotFoundException {
+
         root.getChildren().clear();
         Scanner readFile = new Scanner(new File("src/main/java/software/engineering/contraptioncrack/level/levelinfo.txt"));
+
+        // If a new game is starting
         if (level.equals("level-1")) {
             Text title = new Text(200, 200, "Welcome to Contraption Crack!");
             title.setFont(new Font(30));
@@ -86,79 +91,20 @@ public class LevelLoader {
             }
         }
 
-//        if (level.equals("Level4")) reachedLevel4 = true;
-        if (level.equals("level-1")) {
-            Text title = new Text(200, 200, "Welcome to Contraption Crack!");
-            title.setFont(new Font(30));
-            Button btn = new Button("New Game");
-            btn.setLayoutY(450);
-            btn.setLayoutX(450);
-            Button load = new Button("Load");
-            load.setLayoutX(450);
-            load.setLayoutY(500);
-            btn.setOnAction(actionEvent -> {
-                scene.setFill(Color.BLACK);
-                try {
-                    loadLevel("Level1");
-                    timer.start();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-            root.getChildren().add(title);
-            root.getChildren().add(btn);
-            root.getChildren().add(load);
-            return;
-        }
+        // we want to load the gameboard based on our file. Passing the scanner instance will maintain
+        // the current cursor index in the game file that is being read
         GameBoard gb = loadGameBoard(readFile);
 
         currentLevel = level;
-        dropdownMenu.setLayoutX(0);
-        dropdownMenu.setLayoutY(0);
-        dropdownMenu.setPrefSize(160, 80);
-        Button save = new Button("Save");
-        save.setPrefSize(160, 20);
-        //        save.setOnAction(actionEvent -> saveState());
-        Button load = new Button("Load");
-        load.setPrefSize(160, 20);
-        //        load.setOnAction(actionEvent -> {
-//            try {
-//                loadState();
-//            } catch (FileNotFoundException e) {
-//                throw new RuntimeException(e);
-//            }
-//        });
-        Button restartArea = new Button("Restart Area");
-        restartArea.setPrefSize(160, 20);
-        //        restartArea.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent actionEvent) {
-//                try {
-//                    if(reachedLevel4){
-//                        loadLevel("Level4");
-//                    }else {
-//                        loadLevel("Level1");
-//                    }
-//                } catch (IOException e) {
-//                    throw new RuntimeException(e);
-//                }
-//            }
-//        });
-        Button restartLevel = new Button("Restart Level");
-        restartLevel.setPrefSize(160, 20);
-//        restartLevel.setOnAction(actionEvent ->  {
-//                try {
-//                    loadLevel("Level1");
-//                } catch (IOException e) {
-//                    throw new RuntimeException(e);
-//                }
-//        });
-        dropdownMenu.getChildren().addAll(save, load, restartArea, restartLevel);
 
-        root.getChildren().add(dropdownMenu);
+        // This is the game menu that provides options
+        dropdownMenu = DropdownMenu.getInstance();
         dropdownMenu.setVisible(false);
+        root.getChildren().add(dropdownMenu);
 
-        player = new Player(playerCoords[0], playerCoords[1]);
+
+        player = Player.getInstance();
+        player.initialize(playerCoords[0], playerCoords[1]);
         root.getChildren().add(gb);
 
         for (GameObject go : gameObjects) {

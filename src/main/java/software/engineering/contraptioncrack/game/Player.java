@@ -11,17 +11,33 @@ public class Player extends Rectangle{
     private final static int SIZE = 30;
     private ArrayList<GameObject> gameObjects;
     private int[] movementBounds = {900,900};
+    private static Player player;
 
-    public Player(int x, int y){
+    private Player(int x, int y){
         setHeight(SIZE);
         setWidth(SIZE);
         setFill(Color.CYAN);
-        setLayoutX(x);
-        setLayoutY(y);
+        relocate(x, y);
         gameObjects = new ArrayList<>();
     }
-    public Player() {
+    private Player() {
+        gameObjects = new ArrayList<>();
+    }
+    public static synchronized Player getInstance() {
+        if(player == null) {
+            player =  new Player();
+        }
+        return player;
+    }
+    public void initialize(int x, int y) {
+        setHeight(SIZE);
+        setWidth(SIZE);
+        setFill(Color.CYAN);
+        this.reposition(x, y);
 
+    }
+    public void reposition(int x, int y) {
+        relocate(x, y);
     }
     public Rectangle getBounds(int dx, int dy){
         return new Rectangle(dx, dy, SIZE, SIZE);
@@ -52,7 +68,8 @@ public class Player extends Rectangle{
         if(yPos < topBound || yPos > bottomBound) {
             return;
         }
-        setLayoutX(xPos);
-        setLayoutY(yPos);
+//        setLayoutX(xPos);
+//        setLayoutY(yPos);
+        relocate(xPos, yPos);
     }
 }
