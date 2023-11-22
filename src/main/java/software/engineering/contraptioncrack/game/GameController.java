@@ -39,12 +39,13 @@ public class GameController {
         Scene scene = initializeScene(root);
         player = Player.getInstance();
         levelLoader = new LevelLoader(root, scene, gameObjects);
+        dropdownMenu = DropdownMenu.getInstance(levelLoader);
         try {
             levelLoader.loadLevel("level-1");
         } catch (FileNotFoundException fnfe) {
             System.out.println("File not found");
         }
-        dropdownMenu = DropdownMenu.getInstance();
+
         initGameLoop();
         stage.setTitle("Contraption Crack");
         stage.setScene(scene);
@@ -145,9 +146,11 @@ public class GameController {
                     dPressed = true;
                     break;
                 case ESCAPE:
+                    System.out.println(escActive);
                     if(!escActive){
                         escActive = true;
                         dropdownMenu.setVisible(true);
+                        System.out.println("Escape Pushed");
                     }else{
                         escActive = false;
                         dropdownMenu.setVisible(false);

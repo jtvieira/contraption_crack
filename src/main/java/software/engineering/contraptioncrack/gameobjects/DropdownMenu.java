@@ -2,22 +2,35 @@ package software.engineering.contraptioncrack.gameobjects;
 
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import software.engineering.contraptioncrack.level.LevelLoader;
+
+import java.io.FileNotFoundException;
 
 public class DropdownMenu extends VBox {
 
     private static DropdownMenu menu;
+    private LevelLoader levelLoader;
 
-    public static synchronized DropdownMenu getInstance() {
+    public static synchronized DropdownMenu getInstance(LevelLoader levelLoader) {
         if(menu == null)
-            menu = new DropdownMenu();
+            menu = new DropdownMenu(levelLoader);
         return menu;
     }
 
-    private DropdownMenu() {
+    public static synchronized DropdownMenu getInstance() {
+        return menu == null ? new DropdownMenu() : menu;
+    }
+
+    private DropdownMenu() {}
+
+    private DropdownMenu(LevelLoader levelLoader) {
+        System.out.println("Creating new dropdown Menu");
+        menu = getInstance();
         menu.setLayoutX(0);
         menu.setLayoutY(0);
         menu.setPrefSize(160, 80);
         this.populateMenu();
+        this.levelLoader = levelLoader;
     }
 
     private void populateMenu() {
@@ -25,8 +38,8 @@ public class DropdownMenu extends VBox {
         Button load = createLoad();
         Button restartArea = createRestartArea();
         Button restartLevel = createRestartLevel();
-
-        menu.getChildren().addAll(save, load, restartArea, restartLevel);
+        Button exitGame = createExitGame();
+        menu.getChildren().addAll(save, load, restartArea, restartLevel, exitGame);
     }
 
     private Button createSave() {
@@ -80,6 +93,19 @@ public class DropdownMenu extends VBox {
 //                }
 //        });
         return restartLevel;
+    }
+
+    private Button createExitGame() {
+        Button exitGame = new Button("Exit Game");
+        exitGame.setPrefSize(160, 20);
+        exitGame.setOnAction(actionEvent -> {
+            try {
+                levelLoader.loadLevel("level-1");
+            } catch(FileNotFoundException fnfe){
+                System.out.println("File not found");
+            }
+        });
+        return exitGame;
     }
 
 }

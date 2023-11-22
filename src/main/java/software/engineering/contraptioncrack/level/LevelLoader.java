@@ -98,7 +98,7 @@ public class LevelLoader {
         currentLevel = level;
 
         // This is the game menu that provides options
-        dropdownMenu = DropdownMenu.getInstance();
+        dropdownMenu = DropdownMenu.getInstance(this);
         dropdownMenu.setVisible(false);
         root.getChildren().add(dropdownMenu);
 
